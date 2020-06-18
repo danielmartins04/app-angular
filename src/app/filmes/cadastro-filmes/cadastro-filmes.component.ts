@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { ValidarCamposService } from 'src/app/shared/components/campos/validar-campos.service';
 import { Filme } from 'src/app/shared/models/filme';
 import { FilmesService } from 'src/app/core/filmes.service';
-import { MatDialog } from '@angular/material/dialog';
 import { AlertaComponent } from 'src/app/shared/components/alerta/alerta.component';
 import { Alerta } from 'src/app/shared/models/alerta';
 
@@ -20,7 +21,8 @@ export class CadastroFilmesComponent implements OnInit {
   constructor(public validacao: ValidarCamposService, 
               public dialog: MatDialog,
               private fb: FormBuilder,
-              private filmeService: FilmesService) { }
+              private filmeService: FilmesService,
+              private router: Router) { }
 
   get f() {
     return this.cadastro.controls;
@@ -67,9 +69,25 @@ export class CadastroFilmesComponent implements OnInit {
       }
 
       const dialogRef = this.dialog.open(AlertaComponent, config);
+      dialogRef.afterClosed().subscribe((opcao: boolean) => {
+        if (opcao) {
+          this.router.navigateByUrl('filmes');
+        } else {
+          this.reiniciarForm();
+        }
+      })
     },
      () => {
-      alert('Erro ao salvar');
+      const config = {
+        data: {
+          titulo: 'Erro ao salvar o resgitro!',
+          descricao: 'Não foi possível salvar seu registro!',
+          corBtnSucesso:  'warn',
+          btnSucesso: 'Fechar'
+        } as Alerta
+      }
+
+      this.dialog.open(AlertaComponent, config);
     });
    }
 }
