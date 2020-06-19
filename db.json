@@ -269,6 +269,16 @@
       "urlIMDb": "https://www.imdb.com/title/tt7286456/?ref_=hm_fanfav_tt_2_pd_fp1",
       "genero": "Drama",
       "id": 27
+    },
+    {
+      "titulo": "novo",
+      "urlFoto": "",
+      "dtLancamento": "2020-06-11T03:00:00.000Z",
+      "descricao": "",
+      "nota": 0,
+      "urlIMDb": "",
+      "genero": "Romance",
+      "id": 28
     }
   ]
 }
